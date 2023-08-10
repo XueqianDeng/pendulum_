@@ -20,6 +20,12 @@ import scipy as signal
 # force_keyboard table:
 
 # Dev2/ai0 positive sign, left hand thumb
+# Dev2/ai0 negative sign, left hand index finger
+# Dev2/ai1 positive sign, left hand middle finger
+# Dev2/ai1 negative sign, left hand ring finger
+# Dev2/ai2 positive sign, left hand pinky
+# Dev2/ai2 negative sign, right hand thumb
+
 
 
 # Global Variables
