@@ -9,6 +9,7 @@ from nidaqmx.constants import WAIT_INFINITELY
 import json
 import websocket
 import time
+import os
 import asyncio
 import random
 import math
@@ -30,9 +31,23 @@ import scipy as signal
 # Dev2/ai4 positive sign, right hand ring finger
 # Dev2/ai4 negative sign, right hand pinky
 
+# Subject set up
+subject_label = "Hokin"
+general_directory = "data/" + subject_label
+
+# Check if the directory already exists before creating it
+if not os.path.exists(general_directory):
+    # Create the directory
+    os.mkdir(subject_label)
+    print(f"Directory '{subject_label}' created successfully.")
+else:
+    print(f"Directory '{subject_label}' already exists.")
+
+
 # Global Variables
 input_mapping = ['Dev2/ai0', 'Dev2/ai1']
 # [thumb and index finger] and [middle and ring finger]
+
 nsamples = 10
 samplerate = 1000
 center = (0, -100)
@@ -184,7 +199,6 @@ def experiment_synchronize():
 
 # Data Parameters
 reset()
-subject_label = "Test"
 N_channels = 2 # recording channels
 current_data = np.zeros([N_channels, nsamples])
 
@@ -213,6 +227,7 @@ ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
 
 init_time = time.time()
+
 experiment_synchronize()
 
 window.close()
