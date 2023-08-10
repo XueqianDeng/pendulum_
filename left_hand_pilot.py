@@ -51,7 +51,7 @@ input_mapping = ['Dev2/ai0', 'Dev2/ai1']
 
 nsamples = 10
 samplerate = 1000
-center = (0, -100)
+center = (0, 50)
 
 global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
 global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
@@ -102,7 +102,6 @@ def experiment_synchronize():
             muscle_right = np.mean(current_data[:, -1])
 
         # Muscle Force Conversion
-
         muscle_right = np.abs(muscle_right) / conversion_unit_for_one_newton * muscle_amplification
         muscle_left = - np.abs(muscle_left) / conversion_unit_for_one_newton * muscle_amplification
 
@@ -204,8 +203,9 @@ N_channels = 2 # recording channels
 current_data = np.zeros([N_channels, nsamples])
 
 # Window Parameters
-window_size = [800, 600]
-window = visual.Window(window_size, units='pix', fullscr=False)
+window_size = [1900, 1200]
+window_position = [0, 25]
+window = visual.Window(window_size, units='pix', fullscr=False, pos=window_position)
 
 # Pendulum Visuals
 pivot = visual.Rect(window, width=10, height=10, fillColor='black')
