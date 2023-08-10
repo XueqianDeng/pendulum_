@@ -25,6 +25,7 @@ import scipy as signal
 # Dev2/ai1 negative sign, left hand ring finger
 # Dev2/ai2 positive sign, left hand pinky
 # Dev2/ai2 negative sign, right hand thumb
+# Dev2/ai3 positive sign, right hand index finger
 
 
 
