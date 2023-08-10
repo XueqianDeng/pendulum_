@@ -35,7 +35,7 @@ import scipy as signal
 
 subject_label = "Hokin"
 Gravity_Level = 5
-general_directory = "data/" + subject_label + "/" + "Gravity" + str(Gravity_Level) + "/"
+general_directory = "data/" + subject_label + "/" + "Gravity" + str(Gravity_Level)
 
 # Check if the directory already exists before creating it
 if not os.path.exists(general_directory):
