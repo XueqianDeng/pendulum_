@@ -32,13 +32,14 @@ import scipy as signal
 # Dev2/ai4 negative sign, right hand pinky
 
 # Subject set up
+
 subject_label = "Hokin"
-general_directory = "data/" + subject_label
+general_directory = "data/" + subject_label + "/"
 
 # Check if the directory already exists before creating it
 if not os.path.exists(general_directory):
     # Create the directory
-    os.mkdir(subject_label)
+    os.mkdir(general_directory)
     print(f"Directory '{subject_label}' created successfully.")
 else:
     print(f"Directory '{subject_label}' already exists.")
@@ -178,7 +179,7 @@ def experiment_synchronize():
             trial_count += 1
             reset()
             ofile.close()
-            ofile = open("data/" + subject_label + str(trial_count) + ".txt", "w")
+            ofile = open(general_directory + str(trial_count) + ".txt", "w")
             ofile.write(subject_label + "\n")
             ofile.write(" ".join(input_mapping) + "\n")
             # Create a text stimulus
@@ -222,7 +223,7 @@ trial_count = 0
 running = True
 maintaining = False
 already_in_range = False
-ofile = open("data/" + subject_label + str(trial_count) + ".txt", "w")
+ofile = open(general_directory + str(trial_count) + ".txt", "w")
 ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
 
