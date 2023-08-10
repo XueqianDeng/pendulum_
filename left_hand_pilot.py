@@ -34,7 +34,8 @@ import scipy as signal
 # Subject set up
 
 subject_label = "Hokin"
-general_directory = "data/" + subject_label + "/"
+Gravity_Level = 5
+general_directory = "data/" + subject_label + "/" + "Gravity" + str(Gravity_Level) + "/"
 
 # Check if the directory already exists before creating it
 if not os.path.exists(general_directory):
@@ -69,7 +70,7 @@ def reset():
     pendulum_mass = 1  # 1 kilogram
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
-    gravity = 10    # meter / second square
+    gravity = Gravity_Level    # meter / second square
     stiffness = 0.2
     inertia = pendulum_mass * pendulum_length * pendulum_length
     drag_coefficient = 10000  # Adjust the drag coefficient as needed
