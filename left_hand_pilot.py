@@ -33,8 +33,9 @@ import scipy as signal
 
 # Subject set up
 
-subject_label = "Hokin"
-Gravity_Level = 5
+subject_label = "Hokin" + "Left_Hand"
+Gravity_Level = 40  # [10 20 30 40 50]
+trials_run = 30
 
 # Directory Making
 general_directory = "data/" + subject_label
@@ -57,8 +58,8 @@ else:
 
 
 # Global Variables
-input_mapping = ['Dev2/ai0', 'Dev2/ai1']
-# [thumb and index finger] and [middle and ring finger]
+input_mapping = ['Dev2/ai3', 'Dev2/ai3']
+# left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
 samplerate = 1000
@@ -81,9 +82,9 @@ def reset():
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
     gravity = Gravity_Level    # meter / second square
-    stiffness = 0.2
+    stiffness = 3
     inertia = pendulum_mass * pendulum_length * pendulum_length
-    drag_coefficient = 10000  # Adjust the drag coefficient as needed
+    drag_coefficient = 5000  # Adjust the drag coefficient as needed
     dt = 0.05  # in second
     muscle_amplification = 100
     muscle_left = 0
@@ -236,7 +237,6 @@ window.flip()
 core.wait(3)
 
 # Setting up
-trials_run = 100
 trial_count = 0
 running = True
 maintaining = False

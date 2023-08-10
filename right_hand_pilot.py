@@ -33,9 +33,12 @@ import scipy as signal
 
 # Subject set up
 
-subject_label = "Hokin"
-Gravity_Level = 5
-general_directory = "data/" + subject_label + "/" + "Gravity" + str(Gravity_Level)
+subject_label = "Hokin" + "Right_Hand"
+Gravity_Level = 40  # [10 20 30 40 50]
+trials_run = 30
+
+# Directory Making
+general_directory = "data/" + subject_label
 
 # Check if the directory already exists before creating it
 if not os.path.exists(general_directory):
@@ -45,10 +48,18 @@ if not os.path.exists(general_directory):
 else:
     print(f"Directory '{subject_label}' already exists.")
 
+general_directory = "data/" + subject_label + "/" + "Gravity" + str(Gravity_Level) + "/"
+# Check if the directory already exists before creating it
+if not os.path.exists(general_directory):
+    os.mkdir(general_directory)
+    print(f"Directory '{subject_label}' created successfully.")
+else:
+    print(f"Directory '{subject_label}' already exists.")
+
 
 # Global Variables
-input_mapping = ['Dev2/ai3', 'Dev2/ai3']
-# right [thumb and index finger] and [middle and ring finger]
+input_mapping = ['Dev2/ai0', 'Dev2/ai1']
+# left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
 samplerate = 1000
@@ -71,9 +82,9 @@ def reset():
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
     gravity = Gravity_Level    # meter / second square
-    stiffness = 0.2
+    stiffness = 3
     inertia = pendulum_mass * pendulum_length * pendulum_length
-    drag_coefficient = 10000  # Adjust the drag coefficient as needed
+    drag_coefficient = 5000  # Adjust the drag coefficient as needed
     dt = 0.05  # in second
     muscle_amplification = 100
     muscle_left = 0
@@ -151,7 +162,7 @@ def experiment_synchronize():
         # Reset angle if greater overflow or underflow
         if 90 < np.degrees(pendulum_angle) or -90 > np.degrees(pendulum_angle):
             maintaining = True
-            message = visual.TextStim(window, text="You Fail", height=30, color='black')
+            message = visual.TextStim(window, text="You Fail", height=30, color='black', pos=[0, 100])
             message.draw()
             window.flip()
             core.wait(0.5)
@@ -167,7 +178,7 @@ def experiment_synchronize():
         if -10 < np.degrees(pendulum_angle) < 10 and already_in_range:
             timer = time.time()
             if 15 > timer - init_time > 3:
-                message = visual.TextStim(window, text="You Succeed", height=30, color='black')
+                message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
                 core.wait(0.5)
                 # Draw the text stimulus
                 message.draw()
@@ -183,13 +194,15 @@ def experiment_synchronize():
             ofile.write(subject_label + "\n")
             ofile.write(" ".join(input_mapping) + "\n")
             # Create a text stimulus
-            message = visual.TextStim(window, text="Wait for the next game", height=30, color='black')
+            message = visual.TextStim(window, text="Wait for the next game", height=30, color='black', pos=[0, 100])
             # Draw the text stimulus
             message.draw()
             window.flip()
             # Wait for 3 seconds
             core.wait(1)
             pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
+            pendulum_angle = random.uniform(np.pi / 6 - np.pi/2, np.pi/3 - np.pi/2) + random.randint(0, 1) * np.pi/2
+            # randomly initialize between [-60 -30] and randomly add 90 to get the positive range
             maintaining = False
 
         if trial_count > trials_run:
@@ -217,9 +230,13 @@ ball_radius = 20
 ball = visual.Circle(window, radius=ball_radius, fillColor='red', lineColor='black', lineWidth=2)
 ground = visual.Line(window, start=(-100, center[1]), end=(100, center[1]), lineColor='black', lineWidth=2)
 
+message = visual.TextStim(window, text="Try to balance the inverted pendulum", height=30, color='black', pos=[0, 100])
+message.draw()
+window.flip()
+# Wait for 3 seconds
+core.wait(3)
 
 # Setting up
-trials_run = 100
 trial_count = 0
 running = True
 maintaining = False
