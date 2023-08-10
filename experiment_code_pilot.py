@@ -26,8 +26,9 @@ import scipy as signal
 # Dev2/ai2 positive sign, left hand pinky
 # Dev2/ai2 negative sign, right hand thumb
 # Dev2/ai3 positive sign, right hand index finger
-
-
+# Dev2/ai3 negative sign, right hand middle finger
+# Dev2/ai4 positive sign, right hand ring finger
+# Dev2/ai4 negative sign, right hand pinky
 
 # Global Variables
 input_mapping = ['Dev2/ai0', 'Dev2/ai1']
