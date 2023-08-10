@@ -32,6 +32,7 @@ import scipy as signal
 
 # Global Variables
 input_mapping = ['Dev2/ai0', 'Dev2/ai1']
+# [thumb and index finger] and [middle and ring finger]
 nsamples = 10
 samplerate = 1000
 center = (0, -100)
@@ -52,7 +53,7 @@ def reset():
     pendulum_mass = 1  # 1 kilogram
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
-    gravity = 40    # meter / second square
+    gravity = 10    # meter / second square
     stiffness = 0.2
     inertia = pendulum_mass * pendulum_length * pendulum_length
     drag_coefficient = 10000  # Adjust the drag coefficient as needed
@@ -60,7 +61,6 @@ def reset():
     muscle_amplification = 100
     muscle_left = 0
     muscle_right = 0
-
 
 def flow_maintainence(pend_angle):
     while pend_angle > 2 * np.pi:
@@ -212,7 +212,6 @@ ofile = open("data/" + subject_label + str(trial_count) + ".txt", "w")
 ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
 
-# asyncio.get_event_loop().run_until_complete(main())
 init_time = time.time()
 experiment_synchronize()
 
