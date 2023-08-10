@@ -17,7 +17,9 @@ import scipy as signal
 
 # Text Equipment with NI MAX
 
-# forcekeyboard table:
+# force_keyboard table:
+
+# Dev2/ai0 positive sign, left hand thumb
 
 
 # Global Variables
