@@ -39,8 +39,8 @@ global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity
 global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
 global conversion_unit_for_one_newton, dt, output_csv_array
 
-subject_label = "Hokin" + "Left_Hand"
-Gravity_Level = 40  # [10 20 30 40 50]
+subject_label = "Hokin" + "Right_Hand"
+Gravity_Level = 10  # [10 20 30 40 50]
 trials_run = 30
 
 # Directory Making
@@ -64,7 +64,7 @@ else:
 
 
 # Global Variables
-input_mapping = ['Dev2/ai1', 'Dev2/ai0']
+input_mapping = ['Dev2/ai3', 'Dev2/ai4']
 # left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
