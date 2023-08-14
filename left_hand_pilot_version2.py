@@ -40,7 +40,7 @@ global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pend
 global conversion_unit_for_one_newton, dt, output_csv_array
 
 subject_label = "Hokin" + "Right_Hand"
-Gravity_Level = 10  # [10 20 30 40 50]
+Gravity_Level = 40  # [10 20 30 40 50]
 trials_run = 30
 
 # Directory Making
@@ -64,7 +64,7 @@ else:
 
 
 # Global Variables
-input_mapping = ['Dev2/ai3', 'Dev2/ai4']
+input_mapping = ['Dev2/ai0', 'Dev2/ai1']
 # left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
