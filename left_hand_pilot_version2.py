@@ -37,7 +37,7 @@ import scipy as signal
 global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
 global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
 global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-global conversion_unit_for_one_newton, dt
+global conversion_unit_for_one_newton, dt, output_csv_array
 
 subject_label = "Hokin" + "Left_Hand"
 Gravity_Level = 40  # [10 20 30 40 50]
@@ -64,7 +64,7 @@ else:
 
 
 # Global Variables
-input_mapping = ['Dev2/ai3', 'Dev2/ai3']
+input_mapping = ['Dev2/ai1', 'Dev2/ai0']
 # left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
@@ -102,7 +102,7 @@ def experiment_synchronize():
     global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
     global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
     global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-    global conversion_unit_for_one_newton, dt
+    global conversion_unit_for_one_newton, dt, output_csv_array
     last_time = time.time()
     while running:
         keys = event.getKeys(keyList=['escape'])
