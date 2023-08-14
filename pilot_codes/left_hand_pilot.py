@@ -32,6 +32,11 @@ import scipy as signal
 # Dev2/ai4 negative sign, right hand pinky
 
 # Subject set up
+global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
+global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
+global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
+global conversion_unit_for_one_newton, dt
+
 
 subject_label = "Hokin" + "Left_Hand"
 Gravity_Level = 40  # [10 20 30 40 50]
@@ -58,17 +63,12 @@ else:
 
 
 # Global Variables
-input_mapping = ['Dev2/ai3', 'Dev2/ai3']
+input_mapping = ['Dev2/a03', 'Dev2/a03']
 # left [thumb and index finger] and [middle and ring finger]
 
 nsamples = 10
 samplerate = 1000
 center = (0, 50)
-
-global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
-global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
-global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-global conversion_unit_for_one_newton, dt
 
 def reset():
     global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
