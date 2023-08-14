@@ -213,7 +213,7 @@ def experiment_synchronize():
 
 # Data Parameters
 reset()
-N_channels = 2 # recording channels
+N_channels = 2  # recording channels
 current_data = np.zeros([N_channels, nsamples])
 output_csv_array = np.array([0, 0, 0])
 
