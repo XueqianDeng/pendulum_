@@ -143,6 +143,7 @@ def experiment_synchronize():
             current_data = np.asarray(indata).T
         record_data = np.append(np.mean(current_data, axis=0), current_time)
         ofile.write(str(record_data) + "\n")
+        output_csv_array = np.vstack((output_csv_array, record_data))
 
         # Update Pendulum Visuals
         pendulum.start = center
@@ -190,9 +191,12 @@ def experiment_synchronize():
             trial_count += 1
             reset()
             ofile.close()
+            df = pd.DataFrame(data=output_csv_array)
+            df.to_csv(general_directory + str(trial_count) + ".csv", index=False)
             ofile = open(general_directory + str(trial_count) + ".txt", "w")
             ofile.write(subject_label + "\n")
             ofile.write(" ".join(input_mapping) + "\n")
+            output_csv_array = np.array([0, 0, 0])
             # Create a text stimulus
             message = visual.TextStim(window, text="Wait for the next game", height=30, color='black', pos=[0, 100])
             # Draw the text stimulus
@@ -215,7 +219,6 @@ def experiment_synchronize():
 reset()
 N_channels = 2  # recording channels
 current_data = np.zeros([N_channels, nsamples])
-output_csv_array = np.array([0, 0, 0])
 
 # Window Parameters
 window_size = [1900, 1200]
@@ -245,6 +248,7 @@ already_in_range = False
 ofile = open(general_directory + str(trial_count) + ".txt", "w")
 ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
+output_csv_array = np.array([0, 0, 0])
 
 init_time = time.time()
 
