@@ -171,21 +171,21 @@ def experiment_synchronize():
 
         #  Maintaining Check Code
         print("Here,", np.degrees(pendulum_angle))
-       #  if -10 < np.degrees(pendulum_angle) < 10 and not already_in_range:
-       #    already_in_range = True
-       #     init_time = time.time()
-       # if not (-10 < np.degrees(pendulum_angle) < 10) and already_in_range:
-       #     already_in_range = False
-       #     init_time = 0
-       # if -10 < np.degrees(pendulum_angle) < 10 and already_in_range:
-       #     timer = time.time()
-       #     if 15 > timer - init_time > 3:
-       #         message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
-       #         core.wait(0.5)
-       #         # Draw the text stimulus
-       #         message.draw()
-       #         window.flip()
-       #         maintaining = True
+        #  if -10 < np.degrees(pendulum_angle) < 10 and not already_in_range:
+        #    already_in_range = True
+        #     init_time = time.time()
+        # if not (-10 < np.degrees(pendulum_angle) < 10) and already_in_range:
+        #     already_in_range = False
+        #     init_time = 0
+        # if -10 < np.degrees(pendulum_angle) < 10 and already_in_range:
+        #     timer = time.time()
+        #     if 15 > timer - init_time > 3:
+        #         message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
+        #         core.wait(0.5)
+        #         # Draw the text stimulus
+        #         message.draw()
+        #         window.flip()
+        #         maintaining = True
         time_taken = time.time() - current_time
 
         if time_taken > 6:
