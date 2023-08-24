@@ -37,7 +37,7 @@ import scipy as signal
 global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
 global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
 global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-global conversion_unit_for_one_newton, dt, output_csv_array, time_taken
+global conversion_unit_for_one_newton, dt, output_csv_array
 
 subject_label = "Hokin_Second_Time_" + "Right_Hand"
 Gravity_Level = 40  # [10 15 20 25 30 35 40]
@@ -102,7 +102,7 @@ def experiment_synchronize():
     global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
     global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
     global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-    global conversion_unit_for_one_newton, dt, output_csv_array, time_taken
+    global conversion_unit_for_one_newton, dt, output_csv_array
     last_time = time.time()
     while running:
         keys = event.getKeys(keyList=['escape'])
@@ -171,30 +171,22 @@ def experiment_synchronize():
 
         #  Maintaining Check Code
         print("Here,", np.degrees(pendulum_angle))
-       #  if -10 < np.degrees(pendulum_angle) < 10 and not already_in_range:
-       #    already_in_range = True
-       #     init_time = time.time()
-       # if not (-10 < np.degrees(pendulum_angle) < 10) and already_in_range:
-       #     already_in_range = False
-       #     init_time = 0
-       # if -10 < np.degrees(pendulum_angle) < 10 and already_in_range:
-       #     timer = time.time()
-       #     if 15 > timer - init_time > 3:
-       #         message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
-       #         core.wait(0.5)
-       #         # Draw the text stimulus
-       #         message.draw()
-       #         window.flip()
-       #         maintaining = True
-        time_taken = time.time() - current_time
-
-        if time_taken > 6:
-            message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
-            core.wait(0.5)
-            # Draw the text stimulus
-            message.draw()
-            window.flip()
-            maintaining = True
+        if -10 < np.degrees(pendulum_angle) < 10 and not already_in_range:
+            already_in_range = True
+            init_time = time.time()
+        if not (-10 < np.degrees(pendulum_angle) < 10) and already_in_range:
+            already_in_range = False
+            init_time = 0
+        if -10 < np.degrees(pendulum_angle) < 10 and already_in_range:
+            timer = time.time()
+            if 15 > timer - init_time > 3:
+                message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
+                core.wait(0.5)
+                # Draw the text stimulus
+                message.draw()
+                window.flip()
+                maintaining = True
+        print('Status', already_in_range, maintaining)
 
         if maintaining:
             trial_count += 1
@@ -253,7 +245,7 @@ core.wait(3)
 trial_count = 0
 running = True
 maintaining = False
-# already_in_range = False
+already_in_range = False
 ofile = open(general_directory + str(trial_count) + ".txt", "w")
 ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
