@@ -37,11 +37,12 @@ import scipy as signal
 global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
 global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
 global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-global conversion_unit_for_one_newton, dt, output_csv_array, time_taken
+global conversion_unit_for_one_newton, dt, output_csv_array, time_taken, results
 
 subject_label = "Hokin_Second_Time_" + "Right_Hand"
 Gravity_Level = 40  # [10 15 20 25 30 35 40]
 trials_run = 30
+results = 0
 
 # Directory Making
 general_directory = "data/" + subject_label
@@ -62,7 +63,6 @@ if not os.path.exists(general_directory):
 else:
     print(f"Directory '{subject_label}' already exists.")
 
-
 # Global Variables
 input_mapping = ['Dev2/ai0', 'Dev2/ai1']
 # left [thumb and index finger] and [middle and ring finger]
@@ -70,6 +70,7 @@ input_mapping = ['Dev2/ai0', 'Dev2/ai1']
 nsamples = 10
 samplerate = 1000
 center = (0, 50)
+
 
 def reset():
     global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
@@ -82,7 +83,7 @@ def reset():
     pendulum_mass = 1  # 1 kilogram
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
-    gravity = Gravity_Level    # meter / second square
+    gravity = Gravity_Level  # meter / second square
     stiffness = 3
     inertia = pendulum_mass * pendulum_length * pendulum_length
     drag_coefficient = 5000  # Adjust the drag coefficient as needed
@@ -91,6 +92,7 @@ def reset():
     muscle_left = 0
     muscle_right = 0
 
+
 def flow_maintainence(pend_angle):
     while pend_angle > 2 * np.pi:
         pend_angle = pend_angle - 2 * np.pi
@@ -98,11 +100,12 @@ def flow_maintainence(pend_angle):
         pend_angle = pend_angle + 2 * np.pi
     return pend_angle
 
+
 def experiment_synchronize():
     global running, current_data, trials_run, trial_count, ofile, maintaining, already_in_range, init_time
     global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity, gravity, drag_coefficient
     global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
-    global conversion_unit_for_one_newton, dt, output_csv_array, time_taken
+    global conversion_unit_for_one_newton, dt, output_csv_array, time_taken, results
     last_time = time.time()
     while running:
         keys = event.getKeys(keyList=['escape'])
@@ -127,11 +130,12 @@ def experiment_synchronize():
         # Pendulum Physics
         pendulum_angular_acceleration = pendulum_mass * gravity * pendulum_length * np.sin(pendulum_angle) \
                                         - drag_coefficient * pendulum_angular_velocity - stiffness * \
-                                        (np.abs(muscle_left) + np.abs(muscle_right)) * pendulum_angle + (muscle_left + muscle_right)
+                                        (np.abs(muscle_left) + np.abs(muscle_right)) * pendulum_angle + (
+                                                    muscle_left + muscle_right)
         pendulum_angular_acceleration = pendulum_angular_acceleration / inertia * dt
-        print("acc",pendulum_angular_acceleration)
+        print("acc", pendulum_angular_acceleration)
         pendulum_angular_velocity += pendulum_angular_acceleration
-        print("velo",pendulum_angular_velocity)
+        print("velo", pendulum_angular_velocity)
         pendulum_angle += pendulum_angular_velocity
 
         # Record Data
@@ -195,17 +199,19 @@ def experiment_synchronize():
             message.draw()
             window.flip()
             maintaining = True
+            results = 1
 
         if maintaining:
             trial_count += 1
             reset()
             ofile.close()
-            df = pd.DataFrame(data=output_csv_array)
+            df = pd.DataFrame(data=output_csv_array[1:], columns=['u_1', 'u_2', 'angle', 'velocity', 'acceleration',
+                                                                  'results', 'time'])
             df.to_csv(general_directory + str(trial_count) + ".csv", index=False)
             ofile = open(general_directory + str(trial_count) + ".txt", "w")
             ofile.write(subject_label + "\n")
             ofile.write(" ".join(input_mapping) + "\n")
-            output_csv_array = np.array([0, 0, 0])
+            output_csv_array = np.array([0, 0, 0, 0, 0, 0, 0])
             # Create a text stimulus
             message = visual.TextStim(window, text="Wait for the next game", height=30, color='black', pos=[0, 100])
             # Draw the text stimulus
@@ -214,12 +220,14 @@ def experiment_synchronize():
             # Wait for 3 seconds
             core.wait(1)
             pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
-            pendulum_angle = random.uniform(np.pi / 6 - np.pi/2, np.pi/3 - np.pi/2) + random.randint(0, 1) * np.pi/2
+            pendulum_angle = random.uniform(np.pi / 6 - np.pi / 2, np.pi / 3 - np.pi / 2) + random.randint(0, 1) * np.pi / 2
             # randomly initialize between [-60 -30] and randomly add 90 to get the positive range
             maintaining = False
+            results = 0
 
         if trial_count > trials_run:
             running = False
+
 
 ## Main Code
 
@@ -257,7 +265,7 @@ maintaining = False
 ofile = open(general_directory + str(trial_count) + ".txt", "w")
 ofile.write(subject_label + "\n")
 ofile.write(" ".join(input_mapping) + "\n")
-output_csv_array = np.array([0, 0, 0])
+output_csv_array = np.array([0, 0, 0, 0, 0, 0, 0])
 
 init_time = time.time()
 
