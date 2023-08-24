@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="C:\Users\blamlab\Miniconda3\envs\new_pendulum" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (meta-master)" project-jdk-type="Python SDK" />
+>>>>>>> refs/remotes/github_/master
 </project>
