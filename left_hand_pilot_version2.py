@@ -123,15 +123,12 @@ def experiment_synchronize():
 
         # Time Elapsed
         current_time = time.time()
-        elapsed_time = current_time - last_time
-        last_time = current_time
-        print("Time", elapsed_time)
 
         # Pendulum Physics
         pendulum_angular_acceleration = pendulum_mass * gravity * pendulum_length * np.sin(pendulum_angle) \
                                         - drag_coefficient * pendulum_angular_velocity - stiffness * \
                                         (np.abs(muscle_left) + np.abs(muscle_right)) * pendulum_angle + (
-                                                    muscle_left + muscle_right)
+                                                muscle_left + muscle_right)
         pendulum_angular_acceleration = pendulum_angular_acceleration / inertia * dt
         print("acc", pendulum_angular_acceleration)
         pendulum_angular_velocity += pendulum_angular_acceleration
@@ -146,7 +143,10 @@ def experiment_synchronize():
                                                  samps_per_chan=nsamples)
             indata = read_task.read(nsamples, timeout=WAIT_INFINITELY)
             current_data = np.asarray(indata).T
-        record_data = np.append(np.mean(current_data, axis=0), current_time)
+        record_data = [np.mean(current_data, axis=0)[0], np.mean(current_data, axis=0)[1], pendulum_angle, pendulum_angular_velocity,
+                       pendulum_angular_acceleration, results, current_time]
+        print(record_data)
+        print(output_csv_array)
         ofile.write(str(record_data) + "\n")
         output_csv_array = np.vstack((output_csv_array, record_data))
 
@@ -190,7 +190,7 @@ def experiment_synchronize():
         #         message.draw()
         #         window.flip()
         #         maintaining = True
-        time_taken = time.time() - current_time
+        time_taken = current_time - init_time
 
         if time_taken > 6:
             message = visual.TextStim(window, text="You Succeed", height=30, color='black', pos=[0, 100])
@@ -220,10 +220,12 @@ def experiment_synchronize():
             # Wait for 3 seconds
             core.wait(1)
             pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
-            pendulum_angle = random.uniform(np.pi / 6 - np.pi / 2, np.pi / 3 - np.pi / 2) + random.randint(0, 1) * np.pi / 2
+            pendulum_angle = random.uniform(np.pi / 6 - np.pi / 2, np.pi / 3 - np.pi / 2) + random.randint(0,
+                                                                                                           1) * np.pi / 2
             # randomly initialize between [-60 -30] and randomly add 90 to get the positive range
             maintaining = False
             results = 0
+            init_time = time.time()
 
         if trial_count > trials_run:
             running = False
