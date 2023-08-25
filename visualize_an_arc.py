@@ -1,7 +1,19 @@
 from psychopy import visual, core
 
+# Define monitor specifications
+monitor_width = 1920  # Width of the monitor screen in pixels
+monitor_distance = 60  # Distance from the screen in centimeters
+
 # Create a window
-win = visual.Window(size=(800, 600), fullscr=False, allowGUI=False)
+win = visual.Window(
+    size=(800, 600),
+    fullscr=False,
+    allowGUI=False,
+    monitor="testMonitor",  # Provide a name for the monitor
+    units="deg",
+    screen=0,  # The screen number to display the window on
+    waitBlanking=True
+)
 
 # Create an arc stimulus
 arc = visual.ShapeStim(
@@ -10,7 +22,7 @@ arc = visual.ShapeStim(
     lineColor="white",
     lineWidth=5,
     fillColor=None,
-    vertices=[[0, 0], [0, 100], [100, 100]],
+    vertices=[[0, 0], [0, 10], [10, 10]],
     closeShape=False
 )
 
