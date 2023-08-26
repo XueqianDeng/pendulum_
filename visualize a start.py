@@ -8,35 +8,29 @@ win = visual.Window(size=(800, 600), units='pix')
 # Define colors
 yellow = (1, 1, 0)  # Yellow in RGB
 
-# Create a Chinese flag-like star using ShapeStim with custom vertices
-large_star_radius = 150
-small_star_radius = 50
-angle_offset = np.pi / 10  # Offset angle to start drawing the star
+# Create a visually pleasing five-pointed star using ShapeStim with custom vertices
+outer_radius = 100
+inner_radius = 40
+angle_offset = -np.pi / 2  # Offset angle to start drawing the star
+angle_between_points = 2 * np.pi / 5  # Angle between each point
 
-large_star_vertices = []
-small_star_vertices = []
-
+star_vertices = []
 for i in range(5):
-    angle = angle_offset + i * (2 * np.pi / 5)
-    x_large = large_star_radius * np.cos(angle)
-    y_large = large_star_radius * np.sin(angle)
-    large_star_vertices.append((x_large, y_large))
+    angle = angle_offset + i * angle_between_points
+    outer_x = outer_radius * np.cos(angle)
+    outer_y = outer_radius * np.sin(angle)
+    star_vertices.append((outer_x, outer_y))
 
-    # Add small stars around the large star
-    small_star_angle = angle + np.pi / 5
-    for j in range(4):
-        small_angle = small_star_angle + j * (2 * np.pi / 5)
-        x_small = small_star_radius * np.cos(small_angle) + x_large
-        y_small = small_star_radius * np.sin(small_angle) + y_large
-        small_star_vertices.append((x_small, y_small))
+    inner_angle = angle + angle_between_points / 2
+    inner_x = inner_radius * np.cos(inner_angle)
+    inner_y = inner_radius * np.sin(inner_angle)
+    star_vertices.append((inner_x, inner_y))
 
-# Create ShapeStim objects for the large and small stars
-large_star = visual.ShapeStim(win, vertices=large_star_vertices, fillColor=yellow, lineColor=None)
-small_stars = visual.ShapeStim(win, vertices=small_star_vertices, fillColor=yellow, lineColor=None)
+# Create ShapeStim object for the star
+star = visual.ShapeStim(win, vertices=star_vertices, fillColor=yellow, lineColor=None)
 
-# Draw the Chinese flag-like stars
-# large_star.draw()
-small_stars.draw()
+# Draw the star
+star.draw()
 
 # Update the window
 win.flip()
