@@ -40,7 +40,7 @@ global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pend
 global conversion_unit_for_one_newton, dt, output_csv_array, time_taken, results
 
 subject_label = "Hokin_Third_Time_" + "Right_Hand"
-Gravity_Level = 40  # [10 15 20 25 30 35 40]
+Gravity_Level = 20  # [20 24 28 32 36 40 44]
 trials_run = 30
 results = 0
 
