@@ -84,7 +84,7 @@ def reset():
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
     gravity = Gravity_Level  # meter / second square
-    stiffness = 0.5
+    stiffness = 1.2
     inertia = pendulum_mass * pendulum_length * pendulum_length
     drag_coefficient = 5000  # Adjust the drag coefficient as needed
     dt = 0.05  # in second
