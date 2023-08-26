@@ -3,21 +3,21 @@ import numpy as np
 
 # Create a window
 win = visual.Window(size=(800, 600), units='pix', fullscr=False)
-
+radius = 100
 # Create points for a quarter-circle curve
 num_points = 50
-angle_values = np.linspace(0, np.pi / 2, num_points)  # Angles from 0 to pi/2
-x_values = np.cos(angle_values) * 100  # x = r * cos(angle)
-y_values = np.sin(angle_values) * 100  # y = r * sin(angle)
-
-# Combine points to create the quarter-circle curve
-curve_points = list(zip(x_values, y_values))
-
-# Create a line stimulus to represent the quarter-circle curve
-quarter_circle_curve = visual.Line(win, start=curve_points[0], end=curve_points[-1], lineColor='red')
+angle_values = np.linspace(0, np.pi, num_points)  # Angles from 0 to pi/2
+x_values_out = np.cos(angle_values) * radius  # x = r * cos(angle)
+y_values_out = np.sin(angle_values) * radius  # y = r * sin(angle)
+x_values_in = np.cos(angle_values) * (radius - 20)
+y_values_in = np.cos(angle_values) * (radius - 20)
+x_values = (x_values_out, x_values_in)
+y_values = [y_values_out, y_values_in]
+# Create a polygon stimulus to represent the quarter-circle curve
+curve = visual.ShapeStim(win, vertices=list(zip(x_values, y_values)), fillColor=None, lineColor='red')
 
 # Draw the quarter-circle curve
-quarter_circle_curve.draw()
+curve.draw()
 win.flip()
 
 # Wait for a key press to close the window
