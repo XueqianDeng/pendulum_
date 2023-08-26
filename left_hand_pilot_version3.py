@@ -39,7 +39,7 @@ global pendulum_length, pendulum_mass, pendulum_angle, pendulum_angular_velocity
 global muscle_left, muscle_right, muscle_amplification, inertia, stiffness, pendulum_length_visual_coff
 global conversion_unit_for_one_newton, dt, output_csv_array, time_taken, results
 
-subject_label = "Hokin_Second_Time_" + "Right_Hand"
+subject_label = "Hokin_Third_Time_" + "Right_Hand"
 Gravity_Level = 40  # [10 15 20 25 30 35 40]
 trials_run = 30
 results = 0
@@ -84,7 +84,7 @@ def reset():
     pendulum_angle = np.pi / 4  # Initial angle (45 degrees)
     pendulum_angular_velocity = 0.0
     gravity = Gravity_Level  # meter / second square
-    stiffness = 3
+    stiffness = 0.5
     inertia = pendulum_mass * pendulum_length * pendulum_length
     drag_coefficient = 5000  # Adjust the drag coefficient as needed
     dt = 0.05  # in second
