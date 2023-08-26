@@ -8,13 +8,19 @@ win = visual.Window(size=(800, 600), units='pix')
 yellow = (1, 1, 0)
 black = (-1, -1, -1)
 
-# Draw the lightbulb shape using drawing primitives
-lightbulb = visual.Circle(win, radius=80, pos=(0, 0), fillColor=yellow, lineColor=black)
-lamp = visual.Rect(win, width=40, height=100, pos=(0, -80), fillColor=black)
+# Create a lightbulb shape using Bézier curve control points
+curve_points = [
+    (-50, 0),
+    (-100, 100),
+    (100, 100),
+    (50, 0)
+]
 
-# Draw the lightbulb components
-lightbulb.draw()
-lamp.draw()
+# Draw the lightbulb shape using Bézier curve
+lightbulb_curve = visual.ElementArrayStim(win, nElements=1, xys=curve_points, colors=yellow, elementTex=None, elementMask=None)
+
+# Draw the lightbulb curve
+lightbulb_curve.draw()
 
 # Update the window
 win.flip()
